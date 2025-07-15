@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class game : MonoBehaviour
+public class gameController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public int speed = 3;
+    public int speed = 7;
     // Start is called before the first frame update
     void Start()
     {
