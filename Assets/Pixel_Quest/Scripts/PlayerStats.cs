@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : MonoBehaviour
 {
     public string nextLevel = "Geo_Quest_Scene_2";
+    private int coinCounter = 0;
+    public int playerHealth = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,18 @@ public class PlayerStats : MonoBehaviour
                 {
                     string thislevel = SceneManager.GetActiveScene().name;
                     SceneManager.LoadScene(thislevel);
+                    break;
+                }
+            case "Coin":
+                {
+                    coinCounter++;
+                    Destroy(collision.gameObject);
+                    break;
+                }
+            case "Health":
+                {
+                    playerHealth++;
+                    Destroy(collision.gameObject);
                     break;
                 }
                 
