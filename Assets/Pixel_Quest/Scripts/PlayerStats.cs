@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
-    public string nextLevel = "Geo_Quest_Scene_2";
     private int coinCounter = 0;
     public int playerHealth = 3;
+    public Transform RespawnPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +23,24 @@ public class PlayerStats : MonoBehaviour
     {
         switch (collision.tag)
         {
+            case "Respawn":
+                {
+                    RespawnPoint.position = collision.transform.Find("Point").position;
+                    break;
+                }
             case "Death":
                 {
-                    string thislevel = SceneManager.GetActiveScene().name;
-                    SceneManager.LoadScene(thislevel);
-                    break;
+                    playerHealth--;
+                    if (playerHealth <= 0)
+                    {
+                        string thislevel = SceneManager.GetActiveScene().name;
+                        SceneManager.LoadScene(thislevel);
+                    }
+                    else
+                    {
+                        transform.position = RespawnPoint.position;
+                    }
+                        break;
                 }
             case "Coin":
                 {
@@ -37,13 +50,18 @@ public class PlayerStats : MonoBehaviour
                 }
             case "Health":
                 {
-                    playerHealth++;
-                    Destroy(collision.gameObject);
-                    break;
+                    if (playerHealth < 3)
+                    {
+                        playerHealth++;
+                        Destroy(collision.gameObject);
+                    }
+                        break;
+                   
                 }
                 
            case "Finish":
                         {
+                    string nextLevel = collision.GetComponent<LevelGoal>().nextLevel;
                     SceneManager.LoadScene(nextLevel);
                     break;
                         }
