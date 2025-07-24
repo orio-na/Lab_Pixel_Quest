@@ -18,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float xSpeed = Input.GetAxis("Horizontal");
-        if (xSpeed == -1)
+        if (xSpeed <= -.1)
         {
             sr1.flipX = false;
         }
-        else if (xSpeed == 1)
+        else if (xSpeed >= .1)
         {
             sr1.flipX = true;
         }
