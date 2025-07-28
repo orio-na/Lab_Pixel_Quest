@@ -9,13 +9,18 @@ public class PlayerStats : MonoBehaviour
     public int playerHealth = 3;
     public float maxHealth = 3;
     public Transform RespawnPoint;
+    public int CoinsInLevel = 0;
+
 
     private PlayerUIController _pUIc;
 
     private void Start()
     {
-        _pUIc = GetComponent<PlayerUIController>(); 
+        _pUIc = GetComponent<PlayerUIController>();
+        _pUIc.StartUI();
         _pUIc.UpdateHealth(playerHealth, maxHealth);
+        CoinsInLevel = GameObject.Find("Coins").transform.childCount;
+        _pUIc.UpdateText(coinCounter + "/" + CoinsInLevel);
     }
     // Start is called before the first frame update
    
@@ -52,6 +57,7 @@ public class PlayerStats : MonoBehaviour
             case "Coin":
                 {
                     coinCounter++;
+                    _pUIc.UpdateText(coinCounter + "/" + CoinsInLevel);
                     Destroy(collision.gameObject);
                     break;
                 }
